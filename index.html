@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,617 +10,133 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     :root {
-      --bg: #f8f9fc;
-      --bg2: #f0f2f8;
-      --surface: #ffffff;
-      --border: #e2e6f0;
-      --border-strong: #c8d0e8;
-      --accent: #3b82f6;
-      --accent-dark: #1d4ed8;
-      --accent-dim: rgba(59, 130, 246, 0.08);
-      --navy: #111827;
-      --text: #1e2a45;
-      --muted: #5a6a8a;
-      --light: #8494b4;
+      --bg: #f8f9fc; --bg2: #f0f2f8; --surface: #ffffff;
+      --border: #e2e6f0; --border-strong: #c8d0e8;
+      --accent: #3b82f6; --accent-dark: #1d4ed8;
+      --accent-dim: rgba(59,130,246,0.08);
+      --navy: #111827; --text: #1e2a45; --muted: #5a6a8a; --light: #8494b4;
       --radius: 6px;
     }
-
     html { scroll-behavior: smooth; }
-
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: 'DM Sans', sans-serif;
-      font-size: 15px;
-      line-height: 1.7;
-      overflow-x: hidden;
-    }
-
-    /* NAV */
-    nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 100;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1.1rem 4rem;
-      background: rgba(248, 249, 252, 0.93);
-      backdrop-filter: blur(14px);
-      border-bottom: 1px solid var(--border);
-    }
-
-    .nav-logo {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.72rem;
-      color: var(--accent);
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      font-weight: 500;
-    }
-
-    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
-
-    .nav-links a {
-      color: var(--muted);
-      text-decoration: none;
-      font-size: 0.78rem;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      font-weight: 500;
-      transition: color 0.2s;
-    }
-
-    .nav-links a:hover { color: var(--accent); }
-
-    /* HERO */
-    .hero {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding: 8rem 4rem 5rem;
-      position: relative;
-      overflow: hidden;
-      background: linear-gradient(135deg, #f8f9fc 0%, #eef2ff 50%, #f0f7ff 100%);
-    }
-
-    .hero-blob {
-      position: absolute;
-      border-radius: 50%;
-      pointer-events: none;
-    }
-
-    .hero-blob-1 {
-      width: 650px; height: 650px;
-      top: -180px; right: -120px;
-      background: radial-gradient(circle, rgba(59,130,246,0.09) 0%, transparent 68%);
-    }
-
-    .hero-blob-2 {
-      width: 420px; height: 420px;
-      bottom: -100px; left: -80px;
-      background: radial-gradient(circle, rgba(29,78,216,0.07) 0%, transparent 70%);
-    }
-
-    .hero-eyebrow {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.7rem;
-      color: var(--accent);
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      margin-bottom: 1.25rem;
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      opacity: 0;
-      animation: fadeUp 0.7s ease 0.2s forwards;
-    }
-
-    .hero-eyebrow::before {
-      content: '';
-      display: inline-block;
-      width: 30px; height: 2px;
-      background: var(--accent);
-    }
-
-    .hero-name {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(2.8rem, 6.5vw, 5.5rem);
-      font-weight: 700;
-      line-height: 1.05;
-      color: var(--navy);
-      max-width: 700px;
-      opacity: 0;
-      animation: fadeUp 0.7s ease 0.35s forwards;
-    }
-
-    .hero-name em { font-style: italic; color: var(--accent); }
-
-    .hero-tagline {
-      margin-top: 1.75rem;
-      font-size: 1.05rem;
-      color: var(--muted);
-      max-width: 530px;
-      font-weight: 300;
-      line-height: 1.85;
-      opacity: 0;
-      animation: fadeUp 0.7s ease 0.5s forwards;
-    }
-
-    .hero-meta {
-      margin-top: 2.5rem;
-      display: flex;
-      gap: 3rem;
-      flex-wrap: wrap;
-      opacity: 0;
-      animation: fadeUp 0.7s ease 0.65s forwards;
-    }
-
-    .hero-meta-item { display: flex; flex-direction: column; gap: 0.2rem; }
-
-    .hero-meta-label {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.62rem;
-      color: var(--accent);
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-    }
-
-    .hero-meta-value { font-size: 0.88rem; color: var(--text); font-weight: 500; }
-    .hero-meta-value a { color: var(--text); text-decoration: none; transition: color 0.2s; }
-    .hero-meta-value a:hover { color: var(--accent); }
-
-    .hero-cta {
-      margin-top: 2.75rem;
-      display: flex;
-      gap: 1rem;
-      flex-wrap: wrap;
-      opacity: 0;
-      animation: fadeUp 0.7s ease 0.8s forwards;
-    }
-
-    .btn {
-      display: inline-block;
-      padding: 0.72rem 1.8rem;
-      font-size: 0.76rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      text-decoration: none;
-      border-radius: var(--radius);
-      cursor: pointer;
-      transition: all 0.25s;
-      font-family: 'DM Mono', monospace;
-      font-weight: 500;
-    }
-
-    .btn-primary {
-      background: var(--accent);
-      color: #fff;
-      border: 1.5px solid var(--accent);
-      box-shadow: 0 4px 14px rgba(59, 130, 246, 0.28);
-    }
-
-    .btn-primary:hover {
-      background: var(--accent-dark);
-      border-color: var(--accent-dark);
-      box-shadow: 0 6px 20px rgba(59, 130, 246, 0.38);
-      transform: translateY(-1px);
-    }
-
-    .btn-ghost {
-      background: transparent;
-      color: var(--muted);
-      border: 1.5px solid var(--border-strong);
-    }
-
-    .btn-ghost:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-1px); }
-
-    /* SECTIONS */
-    .section-wrap { padding: 6rem 4rem; max-width: 1120px; margin: 0 auto; }
-
-    .alt-bg { max-width: 100%; background: var(--bg2); padding: 6rem 0; }
-    .alt-bg .inner { max-width: 1120px; margin: 0 auto; padding: 0 4rem; }
-
-    .section-header { display: flex; align-items: center; gap: 1.5rem; margin-bottom: 0.75rem; }
-
-    .section-label {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.66rem;
-      color: var(--accent);
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      white-space: nowrap;
-      font-weight: 500;
-    }
-
-    .section-line { flex: 1; height: 1px; background: var(--border); }
-
-    .section-title {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(1.7rem, 3vw, 2.4rem);
-      color: var(--navy);
-      font-weight: 700;
-      margin-bottom: 3rem;
-      margin-top: 0.5rem;
-    }
-
-    /* ABOUT */
-    .summary-text {
-      font-size: 1.05rem;
-      color: var(--muted);
-      font-weight: 300;
-      line-height: 1.9;
-      max-width: 740px;
-      padding-left: 1.75rem;
-      border-left: 3px solid var(--accent);
-    }
-
-    /* STATS */
-    .stats-row {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-      gap: 1.25rem;
-      margin-top: 3.5rem;
-    }
-
-    .stat-box {
-      background: var(--surface);
-      border: 1.5px solid var(--border);
-      border-radius: 10px;
-      padding: 1.75rem 1.25rem;
-      text-align: center;
-      transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s;
-    }
-
-    .stat-box:hover {
-      border-color: var(--accent);
-      box-shadow: 0 4px 20px rgba(59,130,246,0.1);
-      transform: translateY(-2px);
-    }
-
-    .stat-number {
-      font-family: 'Playfair Display', serif;
-      font-size: 2.1rem;
-      color: var(--accent);
-      font-weight: 700;
-      line-height: 1;
-    }
-
-    .stat-label { font-size: 0.74rem; color: var(--muted); margin-top: 0.4rem; line-height: 1.4; }
-
-    /* EXPERIENCE */
-    .exp-list { display: flex; flex-direction: column; gap: 2rem; }
-
-    .exp-card {
-      background: var(--surface);
-      border: 1.5px solid var(--border);
-      border-radius: 10px;
-      padding: 2.25rem 2.5rem;
-      position: relative;
-      transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s;
-    }
-
-    .exp-card:hover {
-      border-color: rgba(59, 130, 246, 0.4);
-      box-shadow: 0 8px 30px rgba(59, 130, 246, 0.08);
-      transform: translateY(-2px);
-    }
-
-    .exp-card::before {
-      content: '';
-      position: absolute;
-      left: 0; top: 0; bottom: 0;
-      width: 4px;
-      border-radius: 10px 0 0 10px;
-      background: var(--accent);
-      opacity: 0;
-      transition: opacity 0.3s;
-    }
-
-    .exp-card:hover::before { opacity: 1; }
-
-    .exp-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      flex-wrap: wrap;
-      gap: 0.75rem;
-      margin-bottom: 1rem;
-    }
-
-    .exp-company {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.67rem;
-      color: var(--accent);
-      letter-spacing: 0.13em;
-      text-transform: uppercase;
-      margin-bottom: 0.3rem;
-      font-weight: 500;
-    }
-
-    .exp-role {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.2rem;
-      color: var(--navy);
-      font-weight: 700;
-    }
-
-    .exp-duration {
-      background: var(--accent-dim);
-      color: var(--accent-dark);
-      font-family: 'DM Mono', monospace;
-      font-size: 0.65rem;
-      padding: 0.3rem 0.85rem;
-      border-radius: 20px;
-      letter-spacing: 0.06em;
-      white-space: nowrap;
-      font-weight: 500;
-    }
-
-    .exp-client { font-size: 0.82rem; color: var(--muted); margin-bottom: 1.2rem; font-style: italic; }
-
-    .exp-bullets { list-style: none; display: flex; flex-direction: column; gap: 0.55rem; }
-
-    .exp-bullets li {
-      display: flex;
-      gap: 0.75rem;
-      font-size: 0.9rem;
-      color: var(--muted);
-      line-height: 1.6;
-    }
-
-    .exp-bullets li::before {
-      content: '▸';
-      color: var(--accent);
-      flex-shrink: 0;
-      margin-top: 0.05em;
-      font-size: 0.8rem;
-    }
-
-    /* SKILLS */
-    .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 1.25rem; }
-
-    .skill-group {
-      background: var(--surface);
-      border: 1.5px solid var(--border);
-      border-radius: 10px;
-      padding: 1.6rem;
-      transition: border-color 0.3s, box-shadow 0.3s;
-    }
-
-    .skill-group:hover {
-      border-color: rgba(59, 130, 246, 0.35);
-      box-shadow: 0 4px 16px rgba(59, 130, 246, 0.07);
-    }
-
-    .skill-group-title {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.65rem;
-      color: var(--accent);
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      margin-bottom: 1.1rem;
-      font-weight: 500;
-    }
-
-    .skill-tags { display: flex; flex-wrap: wrap; gap: 0.45rem; }
-
-    .skill-tag {
-      background: var(--accent-dim);
-      color: var(--accent-dark);
-      font-size: 0.74rem;
-      padding: 0.28rem 0.72rem;
-      border-radius: 4px;
-      border: 1px solid rgba(59, 130, 246, 0.18);
-      font-weight: 500;
-    }
-
-    /* CLIENTS */
-    .clients-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 1.25rem; }
-
-    .client-card {
-      background: var(--surface);
-      border: 1.5px solid var(--border);
-      border-radius: 10px;
-      padding: 1.75rem;
-      transition: all 0.3s;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .client-card::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 3px;
-      background: linear-gradient(90deg, var(--accent), var(--accent-dark));
-      transform: scaleX(0);
-      transform-origin: left;
-      transition: transform 0.3s;
-    }
-
-    .client-card:hover::before { transform: scaleX(1); }
-
-    .client-card:hover {
-      border-color: rgba(59, 130, 246, 0.3);
-      box-shadow: 0 8px 24px rgba(59, 130, 246, 0.09);
-      transform: translateY(-2px);
-    }
-
-    .client-name {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.05rem;
-      color: var(--navy);
-      font-weight: 700;
-      margin-bottom: 0.3rem;
-    }
-
-    .client-sector {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.62rem;
-      color: var(--accent);
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      margin-bottom: 0.75rem;
-      font-weight: 500;
-    }
-
-    .client-desc { font-size: 0.86rem; color: var(--muted); line-height: 1.65; }
-
-    /* ACHIEVEMENTS */
-    .achievements-list { display: flex; flex-direction: column; gap: 1.1rem; }
-
-    .achievement-item {
-      display: flex;
-      gap: 1.5rem;
-      align-items: flex-start;
-      padding: 1.5rem 1.75rem;
-      background: var(--surface);
-      border: 1.5px solid var(--border);
-      border-radius: 10px;
-      transition: all 0.3s;
-    }
-
-    .achievement-item:hover {
-      border-color: rgba(59, 130, 246, 0.35);
-      box-shadow: 0 4px 16px rgba(59, 130, 246, 0.08);
-    }
-
-    .achievement-icon { font-size: 1.5rem; flex-shrink: 0; }
-
-    .achievement-text { font-size: 0.92rem; color: var(--muted); line-height: 1.7; }
-
-    .achievement-text strong { color: var(--navy); font-weight: 600; }
-
-    /* EDUCATION */
-    .edu-card {
-      background: var(--surface);
-      border: 1.5px solid var(--border);
-      border-radius: 10px;
-      padding: 2rem 2.5rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 1rem;
-      transition: border-color 0.3s, box-shadow 0.3s;
-    }
-
-    .edu-card:hover {
-      border-color: rgba(59, 130, 246, 0.35);
-      box-shadow: 0 4px 16px rgba(59, 130, 246, 0.08);
-    }
-
-    .edu-degree { font-family: 'Playfair Display', serif; font-size: 1.15rem; color: var(--navy); font-weight: 700; }
-    .edu-school { font-size: 0.88rem; color: var(--muted); margin-top: 0.3rem; }
-
-    .edu-year {
-      background: var(--accent-dim);
-      color: var(--accent-dark);
-      font-family: 'DM Mono', monospace;
-      font-size: 0.72rem;
-      padding: 0.35rem 1rem;
-      border-radius: 20px;
-      letter-spacing: 0.08em;
-      font-weight: 500;
-    }
-
-    /* CONTACT */
-    .contact-wrap {
-      background: linear-gradient(135deg, #1e3a8a 0%, #1d4ed8 50%, #2563eb 100%);
-      padding: 6rem 4rem;
-      text-align: center;
-    }
-
-    .contact-inner { max-width: 620px; margin: 0 auto; }
-
-    .contact-label {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.66rem;
-      color: rgba(255,255,255,0.55);
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      margin-bottom: 1.25rem;
-    }
-
-    .contact-title {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(1.8rem, 3.5vw, 2.6rem);
-      color: #fff;
-      font-weight: 700;
-      margin-bottom: 1rem;
-    }
-
-    .contact-desc {
-      color: rgba(255,255,255,0.7);
-      margin-bottom: 2.5rem;
-      font-size: 1rem;
-      font-weight: 300;
-      line-height: 1.8;
-    }
-
-    .contact-links { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; }
-
-    .btn-white {
-      background: #fff;
-      color: var(--accent-dark);
-      border: 1.5px solid #fff;
-      box-shadow: 0 4px 14px rgba(0,0,0,0.15);
-    }
-
-    .btn-white:hover { background: transparent; color: #fff; transform: translateY(-1px); }
-
-    .btn-outline-white {
-      background: transparent;
-      color: rgba(255,255,255,0.85);
-      border: 1.5px solid rgba(255,255,255,0.4);
-    }
-
-    .btn-outline-white:hover { border-color: #fff; color: #fff; transform: translateY(-1px); }
-
-    /* FOOTER */
-    footer {
-      border-top: 1px solid var(--border);
-      padding: 1.75rem 4rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 1rem;
-      background: var(--surface);
-    }
-
-    .footer-text { font-family: 'DM Mono', monospace; font-size: 0.63rem; color: var(--light); letter-spacing: 0.08em; }
-    .footer-accent { color: var(--accent); }
-
-    .divider { width: 100%; height: 1px; background: var(--border); }
-
-    /* ANIMATIONS */
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .reveal {
-      opacity: 0;
-      transform: translateY(22px);
-      transition: opacity 0.6s ease, transform 0.6s ease;
-    }
-
-    .reveal.visible { opacity: 1; transform: none; }
-
-    @media (max-width: 768px) {
-      nav { padding: 1rem 1.5rem; }
-      .nav-links { display: none; }
-      .hero { padding: 7rem 1.5rem 4rem; }
-      .section-wrap { padding: 4rem 1.5rem; }
-      .alt-bg .inner { padding: 0 1.5rem; }
-      .contact-wrap { padding: 4rem 1.5rem; }
-      footer { padding: 1.5rem; }
-      .edu-card { flex-direction: column; }
+    body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 15px; line-height: 1.7; overflow-x: hidden; }
+
+    nav { position: fixed; top:0; left:0; right:0; z-index:100; display:flex; justify-content:space-between; align-items:center; padding:1.1rem 4rem; background:rgba(248,249,252,0.93); backdrop-filter:blur(14px); border-bottom:1px solid var(--border); }
+    .nav-logo { font-family:'DM Mono',monospace; font-size:0.72rem; color:var(--accent); letter-spacing:0.15em; text-transform:uppercase; font-weight:500; }
+    .nav-links { display:flex; gap:2.5rem; list-style:none; }
+    .nav-links a { color:var(--muted); text-decoration:none; font-size:0.78rem; letter-spacing:0.06em; text-transform:uppercase; font-weight:500; transition:color 0.2s; }
+    .nav-links a:hover { color:var(--accent); }
+
+    .hero { min-height:100vh; display:flex; flex-direction:column; justify-content:center; padding:8rem 4rem 5rem; position:relative; overflow:hidden; background:linear-gradient(135deg,#f8f9fc 0%,#eef2ff 50%,#f0f7ff 100%); }
+    .hero-blob { position:absolute; border-radius:50%; pointer-events:none; }
+    .hero-blob-1 { width:650px; height:650px; top:-180px; right:-120px; background:radial-gradient(circle,rgba(59,130,246,0.09) 0%,transparent 68%); }
+    .hero-blob-2 { width:420px; height:420px; bottom:-100px; left:-80px; background:radial-gradient(circle,rgba(29,78,216,0.07) 0%,transparent 70%); }
+
+    .hero-eyebrow { font-family:'DM Mono',monospace; font-size:0.7rem; color:var(--accent); letter-spacing:0.2em; text-transform:uppercase; margin-bottom:1.25rem; display:flex; align-items:center; gap:0.75rem; opacity:0; animation:fadeUp 0.7s ease 0.2s forwards; }
+    .hero-eyebrow::before { content:''; display:inline-block; width:30px; height:2px; background:var(--accent); }
+    .hero-name { font-family:'Playfair Display',serif; font-size:clamp(2.8rem,6.5vw,5.5rem); font-weight:700; line-height:1.05; color:var(--navy); max-width:700px; opacity:0; animation:fadeUp 0.7s ease 0.35s forwards; }
+    .hero-name em { font-style:italic; color:var(--accent); }
+    .hero-tagline { margin-top:1.75rem; font-size:1.05rem; color:var(--muted); max-width:530px; font-weight:300; line-height:1.85; opacity:0; animation:fadeUp 0.7s ease 0.5s forwards; }
+    .hero-meta { margin-top:2.5rem; display:flex; gap:3rem; flex-wrap:wrap; opacity:0; animation:fadeUp 0.7s ease 0.65s forwards; }
+    .hero-meta-item { display:flex; flex-direction:column; gap:0.2rem; }
+    .hero-meta-label { font-family:'DM Mono',monospace; font-size:0.62rem; color:var(--accent); letter-spacing:0.18em; text-transform:uppercase; }
+    .hero-meta-value { font-size:0.88rem; color:var(--text); font-weight:500; }
+    .hero-meta-value a { color:var(--text); text-decoration:none; transition:color 0.2s; }
+    .hero-meta-value a:hover { color:var(--accent); }
+    .hero-cta { margin-top:2.75rem; display:flex; gap:1rem; flex-wrap:wrap; opacity:0; animation:fadeUp 0.7s ease 0.8s forwards; }
+
+    .btn { display:inline-block; padding:0.72rem 1.8rem; font-size:0.76rem; letter-spacing:0.1em; text-transform:uppercase; text-decoration:none; border-radius:var(--radius); cursor:pointer; transition:all 0.25s; font-family:'DM Mono',monospace; font-weight:500; }
+    .btn-primary { background:var(--accent); color:#fff; border:1.5px solid var(--accent); box-shadow:0 4px 14px rgba(59,130,246,0.28); }
+    .btn-primary:hover { background:var(--accent-dark); border-color:var(--accent-dark); transform:translateY(-1px); }
+    .btn-ghost { background:transparent; color:var(--muted); border:1.5px solid var(--border-strong); }
+    .btn-ghost:hover { border-color:var(--accent); color:var(--accent); transform:translateY(-1px); }
+    .btn-white { background:#fff; color:var(--accent-dark); border:1.5px solid #fff; box-shadow:0 4px 14px rgba(0,0,0,0.15); }
+    .btn-white:hover { background:transparent; color:#fff; transform:translateY(-1px); }
+    .btn-outline-white { background:transparent; color:rgba(255,255,255,0.85); border:1.5px solid rgba(255,255,255,0.4); }
+    .btn-outline-white:hover { border-color:#fff; color:#fff; transform:translateY(-1px); }
+
+    .section-wrap { padding:6rem 4rem; max-width:1120px; margin:0 auto; }
+    .alt-bg { max-width:100%; background:var(--bg2); padding:6rem 0; }
+    .alt-bg .inner { max-width:1120px; margin:0 auto; padding:0 4rem; }
+    .section-header { display:flex; align-items:center; gap:1.5rem; margin-bottom:0.75rem; }
+    .section-label { font-family:'DM Mono',monospace; font-size:0.66rem; color:var(--accent); letter-spacing:0.2em; text-transform:uppercase; white-space:nowrap; font-weight:500; }
+    .section-line { flex:1; height:1px; background:var(--border); }
+    .section-title { font-family:'Playfair Display',serif; font-size:clamp(1.7rem,3vw,2.4rem); color:var(--navy); font-weight:700; margin-bottom:3rem; margin-top:0.5rem; }
+
+    .summary-text { font-size:1.05rem; color:var(--muted); font-weight:300; line-height:1.9; max-width:740px; padding-left:1.75rem; border-left:3px solid var(--accent); }
+
+    .stats-row { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:1.25rem; margin-top:3.5rem; }
+    .stat-box { background:var(--surface); border:1.5px solid var(--border); border-radius:10px; padding:1.75rem 1.25rem; text-align:center; transition:border-color 0.3s,box-shadow 0.3s,transform 0.3s; }
+    .stat-box:hover { border-color:var(--accent); box-shadow:0 4px 20px rgba(59,130,246,0.1); transform:translateY(-2px); }
+    .stat-number { font-family:'Playfair Display',serif; font-size:2.1rem; color:var(--accent); font-weight:700; line-height:1; }
+    .stat-label { font-size:0.74rem; color:var(--muted); margin-top:0.4rem; line-height:1.4; }
+
+    .exp-list { display:flex; flex-direction:column; gap:2rem; }
+    .exp-card { background:var(--surface); border:1.5px solid var(--border); border-radius:10px; padding:2.25rem 2.5rem; position:relative; transition:border-color 0.3s,box-shadow 0.3s,transform 0.3s; }
+    .exp-card:hover { border-color:rgba(59,130,246,0.4); box-shadow:0 8px 30px rgba(59,130,246,0.08); transform:translateY(-2px); }
+    .exp-card::before { content:''; position:absolute; left:0; top:0; bottom:0; width:4px; border-radius:10px 0 0 10px; background:var(--accent); opacity:0; transition:opacity 0.3s; }
+    .exp-card:hover::before { opacity:1; }
+    .exp-header { display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:0.75rem; margin-bottom:1rem; }
+    .exp-company { font-family:'DM Mono',monospace; font-size:0.67rem; color:var(--accent); letter-spacing:0.13em; text-transform:uppercase; margin-bottom:0.3rem; font-weight:500; }
+    .exp-role { font-family:'Playfair Display',serif; font-size:1.2rem; color:var(--navy); font-weight:700; }
+    .exp-duration { background:var(--accent-dim); color:var(--accent-dark); font-family:'DM Mono',monospace; font-size:0.65rem; padding:0.3rem 0.85rem; border-radius:20px; letter-spacing:0.06em; white-space:nowrap; font-weight:500; }
+    .exp-client { font-size:0.82rem; color:var(--muted); margin-bottom:1.2rem; font-style:italic; }
+    .exp-bullets { list-style:none; display:flex; flex-direction:column; gap:0.55rem; }
+    .exp-bullets li { display:flex; gap:0.75rem; font-size:0.9rem; color:var(--muted); line-height:1.6; }
+    .exp-bullets li::before { content:'▸'; color:var(--accent); flex-shrink:0; margin-top:0.05em; font-size:0.8rem; }
+
+    .skills-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:1.25rem; }
+    .skill-group { background:var(--surface); border:1.5px solid var(--border); border-radius:10px; padding:1.6rem; transition:border-color 0.3s,box-shadow 0.3s; }
+    .skill-group:hover { border-color:rgba(59,130,246,0.35); box-shadow:0 4px 16px rgba(59,130,246,0.07); }
+    .skill-group-title { font-family:'DM Mono',monospace; font-size:0.65rem; color:var(--accent); letter-spacing:0.18em; text-transform:uppercase; margin-bottom:1.1rem; font-weight:500; }
+    .skill-tags { display:flex; flex-wrap:wrap; gap:0.45rem; }
+    .skill-tag { background:var(--accent-dim); color:var(--accent-dark); font-size:0.74rem; padding:0.28rem 0.72rem; border-radius:4px; border:1px solid rgba(59,130,246,0.18); font-weight:500; }
+
+    .clients-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(290px,1fr)); gap:1.25rem; }
+    .client-card { background:var(--surface); border:1.5px solid var(--border); border-radius:10px; padding:1.75rem; transition:all 0.3s; position:relative; overflow:hidden; }
+    .client-card::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background:linear-gradient(90deg,var(--accent),var(--accent-dark)); transform:scaleX(0); transform-origin:left; transition:transform 0.3s; }
+    .client-card:hover::before { transform:scaleX(1); }
+    .client-card:hover { border-color:rgba(59,130,246,0.3); box-shadow:0 8px 24px rgba(59,130,246,0.09); transform:translateY(-2px); }
+    .client-name { font-family:'Playfair Display',serif; font-size:1.05rem; color:var(--navy); font-weight:700; margin-bottom:0.3rem; }
+    .client-sector { font-family:'DM Mono',monospace; font-size:0.62rem; color:var(--accent); letter-spacing:0.12em; text-transform:uppercase; margin-bottom:0.75rem; font-weight:500; }
+    .client-desc { font-size:0.86rem; color:var(--muted); line-height:1.65; }
+
+    .achievements-list { display:flex; flex-direction:column; gap:1.1rem; }
+    .achievement-item { display:flex; gap:1.5rem; align-items:flex-start; padding:1.5rem 1.75rem; background:var(--surface); border:1.5px solid var(--border); border-radius:10px; transition:all 0.3s; }
+    .achievement-item:hover { border-color:rgba(59,130,246,0.35); box-shadow:0 4px 16px rgba(59,130,246,0.08); }
+    .achievement-icon { font-size:1.5rem; flex-shrink:0; }
+    .achievement-text { font-size:0.92rem; color:var(--muted); line-height:1.7; }
+    .achievement-text strong { color:var(--navy); font-weight:600; }
+
+    .edu-card { background:var(--surface); border:1.5px solid var(--border); border-radius:10px; padding:2rem 2.5rem; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem; transition:border-color 0.3s,box-shadow 0.3s; }
+    .edu-card:hover { border-color:rgba(59,130,246,0.35); box-shadow:0 4px 16px rgba(59,130,246,0.08); }
+    .edu-degree { font-family:'Playfair Display',serif; font-size:1.15rem; color:var(--navy); font-weight:700; }
+    .edu-school { font-size:0.88rem; color:var(--muted); margin-top:0.3rem; }
+    .edu-year { background:var(--accent-dim); color:var(--accent-dark); font-family:'DM Mono',monospace; font-size:0.72rem; padding:0.35rem 1rem; border-radius:20px; letter-spacing:0.08em; font-weight:500; }
+
+    .contact-wrap { background:linear-gradient(135deg,#1e3a8a 0%,#1d4ed8 50%,#2563eb 100%); padding:6rem 4rem; text-align:center; }
+    .contact-inner { max-width:620px; margin:0 auto; }
+    .contact-label { font-family:'DM Mono',monospace; font-size:0.66rem; color:rgba(255,255,255,0.55); letter-spacing:0.2em; text-transform:uppercase; margin-bottom:1.25rem; }
+    .contact-title { font-family:'Playfair Display',serif; font-size:clamp(1.8rem,3.5vw,2.6rem); color:#fff; font-weight:700; margin-bottom:1rem; }
+    .contact-desc { color:rgba(255,255,255,0.7); margin-bottom:2.5rem; font-size:1rem; font-weight:300; line-height:1.8; }
+    .contact-links { display:flex; justify-content:center; gap:1rem; flex-wrap:wrap; }
+
+    footer { border-top:1px solid var(--border); padding:1.75rem 4rem; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem; background:var(--surface); }
+    .footer-text { font-family:'DM Mono',monospace; font-size:0.63rem; color:var(--light); letter-spacing:0.08em; }
+    .footer-accent { color:var(--accent); }
+    .divider { width:100%; height:1px; background:var(--border); }
+
+    @keyframes fadeUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
+
+    .reveal { opacity:1; transform:none; transition:opacity 0.6s ease,transform 0.6s ease; }
+    .reveal.hidden { opacity:0; transform:translateY(22px); }
+    .reveal.visible { opacity:1 !important; transform:none !important; }
+
+    @media (max-width:768px) {
+      nav { padding:1rem 1.5rem; } .nav-links { display:none; }
+      .hero { padding:7rem 1.5rem 4rem; } .section-wrap { padding:4rem 1.5rem; }
+      .alt-bg .inner { padding:0 1.5rem; } .contact-wrap { padding:4rem 1.5rem; }
+      footer { padding:1.5rem; } .edu-card { flex-direction:column; }
     }
   </style>
 </head>
@@ -651,7 +168,7 @@
       </div>
       <div class="hero-meta-item">
         <span class="hero-meta-label">Email</span>
-        <span class="hero-meta-value"><a href="/cdn-cgi/l/email-protection#a4d7c5cdd6d1d7cccdd0cc8a9d9d9d95e4c3c9c5cdc88ac7cbc9"><span class="__cf_email__" data-cfemail="8bf8eae2f9fef8e3e2ffe3a5b2b2b2bacbece6eae2e7a5e8e4e6">sairushith.9991@gmail.com</span></a></span>
+        <span class="hero-meta-value"><a href="mailto:sairushith.9991@gmail.com">sairushith.9991@gmail.com</a></span>
       </div>
       <div class="hero-meta-item">
         <span class="hero-meta-label">Phone</span>
@@ -670,9 +187,7 @@
   <div class="section-wrap" id="about">
     <div class="section-header reveal"><span class="section-label">01 — About</span><div class="section-line"></div></div>
     <h2 class="section-title reveal">Professional Summary</h2>
-    <p class="summary-text reveal">
-      Customer Success and Business Consulting professional with <strong>3 years of total IT experience</strong>, including 2 years delivering enterprise SaaS and CRM-based solutions for government and large enterprise clients on the <strong>Quixy platform</strong>, and 1 year as a Salesforce Administrator at Persistent Systems. Experienced in leading end-to-end consulting engagements — from requirement discovery and solution configuration through UAT, go-live, and post-deployment hyper-care. A trusted customer-facing consultant with a proven track record of stakeholder management, multi-project delivery, and driving long-term adoption at scale.
-    </p>
+    <p class="summary-text reveal">Customer Success and Business Consulting professional with <strong>3 years of total IT experience</strong>, including 2 years delivering enterprise SaaS and CRM-based solutions for government and large enterprise clients on the <strong>Quixy platform</strong>, and 1 year as a Salesforce Administrator at Persistent Systems. Experienced in leading end-to-end consulting engagements — from requirement discovery and solution configuration through UAT, go-live, and post-deployment hyper-care. A trusted customer-facing consultant with a proven track record of stakeholder management, multi-project delivery, and driving long-term adoption at scale.</p>
     <div class="stats-row">
       <div class="stat-box reveal"><div class="stat-number">3+</div><div class="stat-label">Years IT Experience</div></div>
       <div class="stat-box reveal"><div class="stat-number">5+</div><div class="stat-label">Full Lifecycle Implementations</div></div>
@@ -691,11 +206,10 @@
       <div class="section-header reveal"><span class="section-label">02 — Experience</span><div class="section-line"></div></div>
       <h2 class="section-title reveal">Work History</h2>
       <div class="exp-list">
-
         <div class="exp-card reveal">
           <div class="exp-header">
             <div>
-              <div class="exp-company">VividMinds Technologies Pvt. Ltd &nbsp;·&nbsp; Quixy Platform</div>
+              <div class="exp-company">VividMinds Technologies Pvt. Ltd · Quixy Platform</div>
               <div class="exp-role">Sr. Customer Success Executive</div>
             </div>
             <span class="exp-duration">Feb 2025 — Present</span>
@@ -710,26 +224,24 @@
             <li>Maintained internal systems for documentation, time tracking, and project updates as part of delivery governance.</li>
           </ul>
         </div>
-
         <div class="exp-card reveal">
           <div class="exp-header">
             <div>
-              <div class="exp-company">VividMinds Technologies Pvt. Ltd &nbsp;·&nbsp; Quixy Platform</div>
+              <div class="exp-company">VividMinds Technologies Pvt. Ltd · Quixy Platform</div>
               <div class="exp-role">Customer Success Executive</div>
             </div>
             <span class="exp-duration">Nov 2023 — Jan 2025</span>
           </div>
           <ul class="exp-bullets">
             <li>Delivered 5+ full lifecycle SaaS implementations across government and enterprise accounts including Indian Navy (DOA), Adani Group, TGSWC, Yum India, Yum Franchise, Choithrams, Compass, and Ruaalmadinah.</li>
-            <li>Led the Choithrams project as the primary lead — successfully executed the first module, earned stakeholder appreciation for smooth delivery, and was specifically retained by client request to lead the second module.</li>
+            <li>Led the Choithrams project as the primary project lead — successfully executed the first module, earned stakeholder appreciation for smooth delivery, and was specifically retained by client request to lead the second module.</li>
+            <li>Volunteered on weekends for the TNPA (Transnet National Ports Authority) POC — delivered Permit Management successfully and received appreciation from both the Sales and CS teams.</li>
             <li>Configured 40+ automated workflows and dashboards aligned with operational processes across client engagements.</li>
             <li>Provided onsite and remote customer support during deployment, stabilization, and hyper-care phases.</li>
             <li>Assisted clients with structured training sessions and knowledge transfer to enable confident system usage and long-term adoption.</li>
-            <li>Monitored post-go-live usage and customer feedback, proactively addressing issues to improve adoption and retention.</li>
             <li>Managed multiple customer engagements in parallel while meeting delivery timelines, utilization targets, and satisfaction goals.</li>
           </ul>
         </div>
-
         <div class="exp-card reveal">
           <div class="exp-header">
             <div>
@@ -746,10 +258,8 @@
             <li>Executed system testing, data validation, and defect resolution prior to production releases.</li>
             <li>Participated in Agile/Scrum delivery models, assisting with requirement understanding and testing cycles.</li>
             <li>Assisted in CI/CD deployment activities through documentation and validation checks.</li>
-            <li>Provided ongoing application support to ensure system stability and user issue resolution.</li>
           </ul>
         </div>
-
       </div>
     </div>
   </div>
@@ -764,63 +274,47 @@
       <div class="skill-group reveal">
         <div class="skill-group-title">Customer Success</div>
         <div class="skill-tags">
-          <span class="skill-tag">Customer Relationship Mgmt</span>
-          <span class="skill-tag">Stakeholder Engagement</span>
-          <span class="skill-tag">Customer Adoption</span>
-          <span class="skill-tag">Hyper-Care Support</span>
-          <span class="skill-tag">Issue Resolution</span>
-          <span class="skill-tag">Retention Strategies</span>
+          <span class="skill-tag">Customer Relationship Mgmt</span><span class="skill-tag">Stakeholder Engagement</span>
+          <span class="skill-tag">Customer Adoption</span><span class="skill-tag">Hyper-Care Support</span>
+          <span class="skill-tag">Issue Resolution</span><span class="skill-tag">Retention Strategies</span>
         </div>
       </div>
       <div class="skill-group reveal">
         <div class="skill-group-title">Business Consulting</div>
         <div class="skill-tags">
-          <span class="skill-tag">Requirement Discovery</span>
-          <span class="skill-tag">Solution Design</span>
-          <span class="skill-tag">Change Management</span>
-          <span class="skill-tag">End-to-End Delivery</span>
-          <span class="skill-tag">UAT & Go-Live</span>
-          <span class="skill-tag">Workshop Facilitation</span>
+          <span class="skill-tag">Requirement Discovery</span><span class="skill-tag">Solution Design</span>
+          <span class="skill-tag">Change Management</span><span class="skill-tag">End-to-End Delivery</span>
+          <span class="skill-tag">UAT &amp; Go-Live</span><span class="skill-tag">Workshop Facilitation</span>
         </div>
       </div>
       <div class="skill-group reveal">
-        <div class="skill-group-title">CRM & Platforms</div>
+        <div class="skill-group-title">CRM &amp; Platforms</div>
         <div class="skill-tags">
-          <span class="skill-tag">Quixy</span>
-          <span class="skill-tag">Salesforce CRM</span>
-          <span class="skill-tag">Salesforce Lightning</span>
-          <span class="skill-tag">Bold BI</span>
+          <span class="skill-tag">Quixy</span><span class="skill-tag">Salesforce CRM</span>
+          <span class="skill-tag">Salesforce Lightning</span><span class="skill-tag">Bold BI</span>
           <span class="skill-tag">Workflow Configuration</span>
         </div>
       </div>
       <div class="skill-group reveal">
         <div class="skill-group-title">Technical</div>
         <div class="skill-tags">
-          <span class="skill-tag">SQL (Reporting)</span>
-          <span class="skill-tag">Data Validation</span>
-          <span class="skill-tag">REST API Support</span>
-          <span class="skill-tag">SAP Integration Support</span>
-          <span class="skill-tag">SAP DAP</span>
-          <span class="skill-tag">App Troubleshooting</span>
-          <span class="skill-tag">MS Excel</span>
+          <span class="skill-tag">SQL (Reporting)</span><span class="skill-tag">Data Validation</span>
+          <span class="skill-tag">REST API Support</span><span class="skill-tag">SAP Integration Support</span>
+          <span class="skill-tag">SAP DAP</span><span class="skill-tag">App Troubleshooting</span><span class="skill-tag">MS Excel</span>
         </div>
       </div>
       <div class="skill-group reveal">
-        <div class="skill-group-title">Project & Delivery</div>
+        <div class="skill-group-title">Project &amp; Delivery</div>
         <div class="skill-tags">
-          <span class="skill-tag">Multi-Project Management</span>
-          <span class="skill-tag">Agile / Scrum</span>
-          <span class="skill-tag">Documentation</span>
-          <span class="skill-tag">Knowledge Transfer</span>
+          <span class="skill-tag">Multi-Project Management</span><span class="skill-tag">Agile / Scrum</span>
+          <span class="skill-tag">Documentation</span><span class="skill-tag">Knowledge Transfer</span>
           <span class="skill-tag">Delivery Governance</span>
         </div>
       </div>
       <div class="skill-group reveal">
         <div class="skill-group-title">Languages</div>
         <div class="skill-tags">
-          <span class="skill-tag">English</span>
-          <span class="skill-tag">Telugu</span>
-          <span class="skill-tag">Hindi</span>
+          <span class="skill-tag">English</span><span class="skill-tag">Telugu</span><span class="skill-tag">Hindi</span>
         </div>
       </div>
     </div>
@@ -834,73 +328,61 @@
       <div class="section-header reveal"><span class="section-label">04 — Projects</span><div class="section-line"></div></div>
       <h2 class="section-title reveal">Key Client Engagements</h2>
       <div class="clients-grid">
-
         <div class="client-card reveal">
           <div class="client-name">Choithrams ✦ Project Lead</div>
-          <div class="client-sector">Enterprise / Retail &nbsp;·&nbsp; Quixy</div>
-          <p class="client-desc">First project led independently as primary lead. Delivered smooth end-to-end execution earning direct stakeholder appreciation. Client specifically requested retention as lead for the second module — a testament to delivery quality and relationship built.</p>
+          <div class="client-sector">Enterprise / Retail · Quixy</div>
+          <p class="client-desc">Led independently as primary project lead. Delivered smooth end-to-end execution earning direct stakeholder appreciation. Client specifically requested retention as lead for the second module — a direct endorsement of delivery quality and relationship built.</p>
         </div>
-
         <div class="client-card reveal">
           <div class="client-name">TNPA — Transnet National Ports Authority</div>
-          <div class="client-sector">POC / Ports & Logistics &nbsp;·&nbsp; Quixy</div>
-          <p class="client-desc">Worked on a weekend POC for Permit Management, going the extra mile to ensure successful delivery. After a successful demo, received appreciation from both the internal Sales team and CS team — recognising the commitment, effort, and quality of work delivered.</p>
+          <div class="client-sector">POC / Ports &amp; Logistics · Quixy</div>
+          <p class="client-desc">Worked on weekends on a Permit Management POC, going the extra mile to ensure successful delivery. After a successful demo, received appreciation from both the internal Sales team and CS team — recognising the commitment, effort, and quality of work delivered.</p>
         </div>
-
         <div class="client-card reveal">
           <div class="client-name">Indian Navy — DOA</div>
-          <div class="client-sector">Government / Defence &nbsp;·&nbsp; Quixy</div>
+          <div class="client-sector">Government / Defence · Quixy</div>
           <p class="client-desc">Successfully delivered LTC Advance, LTC Claim, Immovable, and Movable modules on schedule. Traveled onsite to Delhi to support all modules through project launch. Received official certification from the Indian Navy for exceptional delivery.</p>
         </div>
-
         <div class="client-card reveal">
           <div class="client-name">TS Oil Fed</div>
-          <div class="client-sector">Government / Telangana &nbsp;·&nbsp; Quixy</div>
+          <div class="client-sector">Government / Telangana · Quixy</div>
           <p class="client-desc">Completed 4 modules promptly with zero delays, including a Bold BI Dashboard in the POC phase. Recognized by the internal sales team for quality delivery and full ownership of the engagement.</p>
         </div>
-
         <div class="client-card reveal">
           <div class="client-name">Adani Group</div>
-          <div class="client-sector">Enterprise / Conglomerate &nbsp;·&nbsp; Quixy</div>
+          <div class="client-sector">Enterprise / Conglomerate · Quixy</div>
           <p class="client-desc">Took full responsibility for two modules and delivered complete end-to-end support without missing any deadlines — managing UAT cycles, stakeholder expectations, and post-go-live hyper-care throughout.</p>
         </div>
-
         <div class="client-card reveal">
           <div class="client-name">Yum India</div>
-          <div class="client-sector">Enterprise / Food & Beverage &nbsp;·&nbsp; Quixy</div>
+          <div class="client-sector">Enterprise / Food &amp; Beverage · Quixy</div>
           <p class="client-desc">Provided dedicated QC/QA support throughout the engagement, consistently meeting deadlines and upholding high quality standards across all project deliverables.</p>
         </div>
-
         <div class="client-card reveal">
           <div class="client-name">Yum Franchise</div>
-          <div class="client-sector">Enterprise / Food & Beverage &nbsp;·&nbsp; Quixy</div>
+          <div class="client-sector">Enterprise / Food &amp; Beverage · Quixy</div>
           <p class="client-desc">Delivered SAP DAP support efficiently, ensuring all tasks were completed on time with no disruption to the delivery timeline or client operations.</p>
         </div>
-
         <div class="client-card reveal">
           <div class="client-name">TGSWC</div>
-          <div class="client-sector">Government / Telangana &nbsp;·&nbsp; Quixy</div>
-          <p class="client-desc">Provided rapid support and quick issue resolution, ensuring all deliverables were completed without delays and stakeholders remained confident throughout the engagement.</p>
+          <div class="client-sector">Government / Telangana · Quixy</div>
+          <p class="client-desc">Provided rapid support and quick issue resolution, ensuring all deliverables were completed without delays and stakeholders remained confident throughout.</p>
         </div>
-
         <div class="client-card reveal">
           <div class="client-name">Compass</div>
-          <div class="client-sector">Enterprise &nbsp;·&nbsp; Quixy</div>
-          <p class="client-desc">Provided timely support throughout the project, resolving issues quickly to keep operations running smoothly and maintaining consistent delivery momentum from start to finish.</p>
+          <div class="client-sector">Enterprise · Quixy</div>
+          <p class="client-desc">Provided timely support throughout the project, resolving issues quickly to keep operations running smoothly and maintaining consistent delivery momentum.</p>
         </div>
-
         <div class="client-card reveal">
           <div class="client-name">Ruaalmadinah</div>
-          <div class="client-sector">Enterprise / International &nbsp;·&nbsp; Quixy</div>
+          <div class="client-sector">Enterprise / International · Quixy</div>
           <p class="client-desc">Implemented the SMO Scorecard solution — delivering a structured performance management tool with onsite and remote support across deployment, stabilization, and hyper-care phases.</p>
         </div>
-
         <div class="client-card reveal">
           <div class="client-name">Baxter International</div>
           <div class="client-sector">Healthcare / Salesforce Admin</div>
-          <p class="client-desc">Administered Salesforce CRM for a global healthcare client at Persistent Systems — completing 50+ admin-related development tasks, managing permissions and releases, and maintaining system stability throughout the engagement.</p>
+          <p class="client-desc">Administered Salesforce CRM for a global healthcare client — completing 50+ admin-related development tasks, managing permissions and releases, and maintaining system stability.</p>
         </div>
-
       </div>
     </div>
   </div>
@@ -914,27 +396,19 @@
     <div class="achievements-list">
       <div class="achievement-item reveal">
         <div class="achievement-icon">🏅</div>
-        <p class="achievement-text">
-          <strong>Certified by the Indian Navy</strong> — Received official certification for the successful onsite demonstration and delivery of the DOA Automation project, recognising exceptional execution, timely module delivery, and client satisfaction at a national government level.
-        </p>
+        <p class="achievement-text"><strong>Certified by the Indian Navy</strong> — Received official certification for the successful onsite demonstration and delivery of the DOA Automation project, recognising exceptional execution, timely module delivery, and client satisfaction at a national government level.</p>
       </div>
       <div class="achievement-item reveal">
         <div class="achievement-icon">⭐</div>
-        <p class="achievement-text">
-          <strong>Recognized by Internal Sales &amp; CS Teams — TNPA (Transnet National Ports Authority)</strong> — Worked weekends on a Permit Management POC, going beyond regular hours to ensure successful delivery. After a successful demo, received appreciation from both the internal Sales and CS teams for exceptional commitment and quality.
-        </p>
+        <p class="achievement-text"><strong>Recognized by Internal Sales &amp; CS Teams — TNPA (Transnet National Ports Authority)</strong> — Worked weekends on a Permit Management POC, going beyond regular hours to ensure successful delivery. After a successful demo, received appreciation from both the internal Sales and CS teams for exceptional commitment and quality.</p>
       </div>
       <div class="achievement-item reveal">
         <div class="achievement-icon">🤝</div>
-        <p class="achievement-text">
-          <strong>Retained by Choithrams for Second Module</strong> — Stakeholders specifically requested retention as project lead for a follow-on module — a direct endorsement of delivery quality, professionalism, and trusted client relationship building.
-        </p>
+        <p class="achievement-text"><strong>Retained by Choithrams for Second Module</strong> — Stakeholders specifically requested retention as project lead for a follow-on module — a direct endorsement of delivery quality, professionalism, and trusted client relationship building.</p>
       </div>
       <div class="achievement-item reveal">
         <div class="achievement-icon">📉</div>
-        <p class="achievement-text">
-          <strong>~30% Reduction in Post-Go-Live Issues</strong> — Achieved measurable improvement in production stability through structured UAT planning, rigorous data validation, and proactive issue resolution across multiple project engagements.
-        </p>
+        <p class="achievement-text"><strong>~30% Reduction in Post-Go-Live Issues</strong> — Achieved measurable improvement in production stability through structured UAT planning, rigorous data validation, and proactive issue resolution across multiple project engagements.</p>
       </div>
     </div>
   </div>
@@ -963,19 +437,41 @@
       <h2 class="contact-title">Let's Connect</h2>
       <p class="contact-desc">Open to new opportunities in Customer Success, Business Consulting, or SaaS Implementation roles. Reach out directly — I'd love to talk.</p>
       <div class="contact-links">
-        <a href="/cdn-cgi/l/email-protection#5d2e3c342f282e35342935736464646c1d3a303c3431733e3230" class="btn btn-white">✉ Send Email</a>
-        <a href="tel:+919666675594" class="btn btn-outline-white">📞 +91 9666675594</a>
+        <a href="mailto:sairushith.9991@gmail.com" class="btn btn-white">Send Email</a>
+        <a href="tel:+919666675594" class="btn btn-outline-white">+91 9666675594</a>
       </div>
     </div>
   </div>
 
-  <!-- FOOTER -->
   <footer>
-    <span class="footer-text">© 2025 <span class="footer-accent">Sai Rushith Basangari</span> — All Rights Reserved</span>
-    <span class="footer-text">Hyderabad, India &nbsp;·&nbsp; Customer Success &amp; Business Consulting</span>
+    <span class="footer-text">2025 <span class="footer-accent">Sai Rushith Basangari</span> — All Rights Reserved</span>
+    <span class="footer-text">Hyderabad, India · Customer Success &amp; Business Consulting</span>
   </footer>
 
-  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-    const reveals = document.querySelectorAll('.reveal');
-    const observer = new IntersectionObserver((entries) => {
-      entries.for
+  <script>
+    window.addEventListener('load', function() {
+      var reveals = document.querySelectorAll('.reveal');
+      reveals.forEach(function(el) {
+        var rect = el.getBoundingClientRect();
+        if (rect.top > window.innerHeight) {
+          el.classList.add('hidden');
+        }
+      });
+      var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.remove('hidden');
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.08 });
+      reveals.forEach(function(el) {
+        if (el.classList.contains('hidden')) {
+          observer.observe(el);
+        }
+      });
+    });
+  </script>
+</body>
+</html>
